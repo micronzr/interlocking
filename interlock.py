@@ -1,5 +1,36 @@
 # imports
 
+class InputControls:
+  def __init__(self):
+    self.raw = 0
+    self.values = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ,0, 0, 0, 0, 0]
+
+  def __str__(self):
+    return f"({self.raw})"
+  def setvals(self,reading):
+    self.raw = reading
+    self.values[1] = int((1 & self.raw) / 1)
+    self.values[2] = int((2 & self.raw) / 2)
+    self.values[3] = int((4 & self.raw) / 4)
+    self.values[4] = int((8 & self.raw) / 8)
+    self.values[5] = int((16 & self.raw) / 16)
+    self.values[6] = int((32 & self.raw) / 32)
+    self.values[7] = int((64 & self.raw) / 64)
+    self.values[8] = int((128 & self.raw) / 128)
+    self.values[9] = int((256 & self.raw) / 256)
+    self.values[10] = int((512 & self.raw) / 512)
+    self.values[11] = int((1024 & self.raw) / 1024)
+    self.values[12] = int((2048 & self.raw) / 2048)
+    self.values[13] = int((4096 & self.raw) / 4096)
+    self.values[14] = int((8192 & self.raw) / 8192)
+    self.values[15] = int((16384 & self.raw) / 16384)
+    self.values[16] = int((32768 & self.raw) / 32768)
+
+
+p1 = InputControls()
+
+print(p1)
+
 # switch class
 
 # functions
