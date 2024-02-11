@@ -26,6 +26,21 @@ class InputControls:
     self.values[15] = int((16384 & self.raw) / 16384)
     self.values[16] = int((32768 & self.raw) / 32768)
 
+class Lever:
+  def __init__(self):
+    self.currentposition = "off"
+    self.lastposition = "off"
+    self.changedposition = False
+    self.required = []
+    self.blocked = []
+    self.control = 0
+
+  def addrequired(self,requires):
+    self.required.append(requires)
+  def addblocked(self,blockedby):
+    self.blocked.append(blockedby)
+
+
 
 p1 = InputControls()
 
