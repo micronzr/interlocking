@@ -4,7 +4,7 @@
 
 # functions
 #init
- # clear required and blocked and linked signal/point
+ # clear required-on and required off and blocked and linked signal/point
  
 # set linked signal/point
 # get linked signal/point
@@ -15,12 +15,18 @@
   #set didchange
   #current pos to last pos
    #if set
-  # while requires
+  # while requires-set
     #check set
     # if set
     # position set
     # else
       # position error
+      # while requires-clear
+    #check set
+    # if set
+    # position error
+    # else
+      # position set
    #while blocked 
      #IF Set
      #position error
