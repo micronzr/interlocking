@@ -34,11 +34,54 @@ class Lever:
     self.required = []
     self.blocked = []
     self.control = 0
+    self.controlmove = False
+    self.error = False
 
   def addrequired(self,requires):
     self.required.append(requires)
   def addblocked(self,blockedby):
     self.blocked.append(blockedby)
+
+  def setposition(self,pos):
+    self.currentposition = pos
+    if self.currentposition == self.lastposition:
+      #didn't move, clear flags and do nothing
+      self.error = False
+      self.controlmove = False
+    else:
+      #lever moved
+      self.changedposition = True
+      self.error = False
+      for require in self.required:
+        if require.currentposition == "on":
+          #required switch on
+          #normal operation
+        else:
+          #required switch off
+          #error condition
+      for block in self.blocked:
+        if block.currentposition == "off":
+          #blocked switch off
+          #normal operation
+        else:
+          #blocking switch on
+          #error condition
+      #check error
+      if self.error == True:
+        #if error do nothing
+      else:
+        #if no error update last position
+        self.lastposition = self.currentposition
+        self.controlmove = True
+
+
+class frame:
+  def __init__(self):
+    self.levers = []
+    self.error = False
+
+  def addlever(self,lever):
+    self.levers.append(lever)
 
 
 
