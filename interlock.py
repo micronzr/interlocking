@@ -142,6 +142,7 @@ class Frame:
         #read lever id
         #check input control. self.inputs.values[leverid]
         #try to set lever
+        #if error set errorlever id
         #if no error
           #loop self.controls
             #if control.id = lever.id
