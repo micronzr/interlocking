@@ -80,6 +80,7 @@ class Lever:
     self.currentposition = pos
     if self.currentposition == self.lastposition:
       #didn't move, clear flags and do nothing
+      self.changedposition = False
       self.error = False
       self.controlmove = False
     else:
@@ -136,7 +137,7 @@ class Frame:
     #flash on
     self.inputs.readhw()
     for lever in self.levers:
-      if self.errorlever == 0
+      if self.errorlever == 0:
         a = 1
         #read lever id
         #check input control. self.inputs.values[leverid]
@@ -146,7 +147,7 @@ class Frame:
             #if control.id = lever.id
               #toggle control
       else:
-      a = 1
+        a = 1
         #if errorlever == lever.id
         #try to set lever
         #loop self.controls
