@@ -1,8 +1,10 @@
 # imports
 
 class InputControls:
-  def __init__(self):
+  def __init__(self,name):
     self.raw = 0
+    self.hwstate = 0
+    self.name = name
     self.values = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ,0, 0, 0, 0, 0]
 
   def __str__(self):
@@ -25,9 +27,41 @@ class InputControls:
     self.values[14] = int((8192 & self.raw) / 8192)
     self.values[15] = int((16384 & self.raw) / 16384)
     self.values[16] = int((32768 & self.raw) / 32768)
-
-class Lever:
+  def readhw(self):
+    self.hwstate = int(input("reading"))
+    self.setvals(self.hwstate)
+class OutputControls:
   def __init__(self):
+    self.raw = 0
+    self.hwstate = 0
+    self.name = name
+    self.values = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ,0, 0, 0, 0, 0]
+
+  def setvals(self,reading):
+    #modify to be outputs
+    self.raw = reading
+    self.values[1] = int((1 & self.raw) / 1)
+    self.values[2] = int((2 & self.raw) / 2)
+    self.values[3] = int((4 & self.raw) / 4)
+    self.values[4] = int((8 & self.raw) / 8)
+    self.values[5] = int((16 & self.raw) / 16)
+    self.values[6] = int((32 & self.raw) / 32)
+    self.values[7] = int((64 & self.raw) / 64)
+    self.values[8] = int((128 & self.raw) / 128)
+    self.values[9] = int((256 & self.raw) / 256)
+    self.values[10] = int((512 & self.raw) / 512)
+    self.values[11] = int((1024 & self.raw) / 1024)
+    self.values[12] = int((2048 & self.raw) / 2048)
+    self.values[13] = int((4096 & self.raw) / 4096)
+    self.values[14] = int((8192 & self.raw) / 8192)
+    self.values[15] = int((16384 & self.raw) / 16384)
+    self.values[16] = int((32768 & self.raw) / 32768)
+
+  def writehw(self):
+    print(self.raw)
+class Lever:
+  def __init__(self,id):
+    self.id = id
     self.currentposition = "off"
     self.lastposition = "off"
     self.changedposition = False
@@ -56,133 +90,112 @@ class Lever:
         if require.currentposition == "on":
           #required switch on
           #normal operation
+          self.a = 1
         else:
           #required switch off
           #error condition
+          self.a = 1
       for block in self.blocked:
         if block.currentposition == "off":
-          #blocked switch off
-          #normal operation
+          # blocked switch off
+          # normal operation
+          self.a = 1
         else:
           #blocking switch on
           #error condition
+          self.a = 1
       #check error
       if self.error == True:
         #if error do nothing
+        self.a = 1
       else:
         #if no error update last position
         self.lastposition = self.currentposition
         self.controlmove = True
+class Control:
+  def __init__(self,id):
+    self.desiredstate = 0
+    self.id = id
 
-
-class frame:
+  def setstate(self,setstate):
+    self.desiredstate = setstate
+class Frame:
   def __init__(self):
     self.levers = []
-    self.error = False
+    self.controls = []
+    #self.inputs
+    #self.outputs
+    self.errorlever = 0
 
   def addlever(self,lever):
     self.levers.append(lever)
+  def addcontrol(self,control):
+    self.controls.append(control)
+
+  def check(self):
+    self.inputs.readhw()
+    for lever in self.levers:
+      if self.errorlever == 0
+        a = 1
+        #read lever id
+        #check input control. self.inputs.values[leverid]
+        #try to set lever
+        #if no error
+          #loop self.controls
+            #if control.id = lever.id
+              #toggle control
+      else:
+      a = 1
+        #if errorlever == lever.id
+        #try to set lever
+        #loop self.controls
+          #if control.id = lever.id
+            #toggle control
 
 
+#setup
 
-p1 = InputControls()
+#inputs
+i1 = InputControls("dunedin")
 
-print(p1)
+#outputs
 
-# switch class
+o1 = OutputControls()
 
-# functions
-#init
- # clear required-on and required off and blocked and linked signal/point
- 
-# set linked signal/point
-# get linked signal/point
- 
-#set position
-  #read pin
-  #check last position
-  #set didchange
-  #current pos to last pos
-   #if set
-  # while requires-set
-    #check set
-    # if set
-    # position set
-    # else
-      # position error
-      # while requires-clear
-    #check set
-    # if set
-    # position error
-    # else
-      # position set
-   #while blocked 
-     #IF Set
-     #position error
-    #else
-    # position set
-    #else (not set)
-    # position unset
-    
-#didchange
-    
-#set pin    
-  # gpio pin  
-    
-    
-#set requires
-  #add switch
-#set blocked by
-  #add switch
-#get position
-  #return position
+#controls
+c1 = Control(1)
+c2 = Control(2)
+c3 = Control(3)
+c4 = Control(4)
+c5 = Control(5)
+c6 = Control(6)
+c7 = Control(7)
+c8 = Control(8)
 
-#-------- end of class
+#switches
+l1 = Lever(1)
+l2 = Lever(2)
+l3 = Lever(3)
+l4 = Lever(4)
 
-# class point
-# set point position
+#frames
 
-#------- end of class
+f1 = Frame()
 
-# class signal
-#set signal position
-#----- end of class
+#interlinking
 
+l1.addrequired(l2)
+l1.addblocked(l3)
 
-# create switches
-# create points
-# create signals
+#add controls to levers
+l1.control = 1
 
-#assign points to switches
-#assign signals to switches
-#switch#.set-requires
-#switch#.set-blocked
+#add to frame
+f1.inputs = i1
+f1.outputs = o1
+f1.addlever(l1)
+f1.addcontrol(c1)
 
-
-
-
-# frame list of switches
-
-
-
-#error=0
-
-# while true
-#while item in frame
-#if error=0    (only do until first error)
-#item.setposition()
-#if item.didchange.
-#then
-#item.getpoint().setposition(item.getposition)
-#if item.getposition=error 
-  #then error =1 
-
-    #while error = 1
-    #error= 0
-     #while item in frame
-     # item.setposition
-     # if  item.getposition = error 
-      # then error = 1
-
-
-  
+#loop
+while True:
+  f1.check()
