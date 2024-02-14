@@ -133,6 +133,7 @@ class Frame:
     self.controls.append(control)
 
   def check(self):
+    #flash on
     self.inputs.readhw()
     for lever in self.levers:
       if self.errorlever == 0
@@ -151,6 +152,10 @@ class Frame:
         #loop self.controls
           #if control.id = lever.id
             #toggle control
+    #levers checked
+    #controls set
+    #flash off
+    self.outputs.writehw()
 
 
 #setup
