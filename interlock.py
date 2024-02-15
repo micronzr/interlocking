@@ -62,8 +62,8 @@ class OutputControls:
 class Lever:
   def __init__(self,id):
     self.id = id
-    self.currentposition = "off"
-    self.lastposition = "off"
+    self.currentposition = 0
+    self.lastposition = 0
     self.changedposition = False
     self.required = []
     self.blocked = []
@@ -88,7 +88,7 @@ class Lever:
       self.changedposition = True
       self.error = False
       for require in self.required:
-        if require.currentposition == "on":
+        if require.currentposition == 1:
           #required switch on
           #normal operation
           self.a = 1
@@ -97,7 +97,7 @@ class Lever:
           #error condition
           self.a = 1
       for block in self.blocked:
-        if block.currentposition == "off":
+        if block.currentposition == 0:
           # blocked switch off
           # normal operation
           self.a = 1
@@ -138,25 +138,24 @@ class Frame:
     self.inputs.readhw()
     for lever in self.levers:
       if self.errorlever == 0:
-        a = 1
         #read lever id
         #check input control. self.inputs.values[leverid]
         #try to set lever
-        #if error set errorlever id
-        #if no error
-          #loop self.controls
-            #if control.id = lever.id
-              #toggle control
+        lever.setposition(inputs.values[lever.id])
+        if lever.error == True:
+          # if error set errorlever id
+          self.errorlever = lever.id
+        else:
+          #if no error
+          for control in self.controls:
+            if control.id == lever.id:
+              control.desiredstate = lever.currentposition
       else:
-        a = 1
-        #if errorlever == lever.id
-        #try to set lever
-        #loop self.controls
-          #if control.id = lever.id
-            #toggle control
-    #levers checked
-    #controls set
-    #flash off
+        if lever.id == self.errorlever:
+          lever.setposition(inputs.values[lever.id])
+          if lever.error == False:
+            self.errorlever = 0
+        #flash off
     self.outputs.writehw()
 
 
