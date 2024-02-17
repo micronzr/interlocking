@@ -81,7 +81,7 @@ class Lever:
     if self.currentposition == self.lastposition:
       #didn't move, clear flags and do nothing
       self.changedposition = False
-      self.error = False
+      #self.error = False
       self.controlmove = False
     else:
       #lever moved
@@ -95,7 +95,7 @@ class Lever:
         else:
           #required switch off
           #error condition
-          self.a = 1
+          self.error = True
       for block in self.blocked:
         if block.currentposition == 0:
           # blocked switch off
@@ -104,7 +104,7 @@ class Lever:
         else:
           #blocking switch on
           #error condition
-          self.a = 1
+          self.error =True
       #check error
       if self.error == True:
         #if error do nothing
