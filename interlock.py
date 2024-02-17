@@ -107,8 +107,9 @@ class Lever:
           self.error =True
       #check error
       if self.error == True:
-        #if error do nothing
-        self.a = 1
+        # if error do nothing
+        self.lastposition = self.currentposition
+        self.controlmove = False
       else:
         #if no error update last position
         self.lastposition = self.currentposition
@@ -152,7 +153,7 @@ class Frame:
               control.desiredstate = lever.currentposition
       else:
         if lever.id == self.errorlever:
-          lever.setposition(inputs.values[lever.id])
+          lever.setposition(self.inputs.values[lever.id])
           if lever.error == False:
             self.errorlever = 0
         #flash off
@@ -200,8 +201,12 @@ l1.control = 1
 f1.inputs = i1
 f1.outputs = o1
 f1.addlever(l1)
+f1.addlever(l2)
+f1.addlever(l3)
 f1.addcontrol(c1)
+f1.addcontrol(c2)
+f1.addcontrol(c3)
 
 #loop
-#while True:
-f1.check()
+while True:
+  f1.check()
