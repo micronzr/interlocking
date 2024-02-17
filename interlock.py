@@ -31,7 +31,7 @@ class InputControls:
     self.hwstate = int(input("reading"))
     self.setvals(self.hwstate)
 class OutputControls:
-  def __init__(self):
+  def __init__(self,name):
     self.raw = 0
     self.hwstate = 0
     self.name = name
@@ -141,7 +141,7 @@ class Frame:
         #read lever id
         #check input control. self.inputs.values[leverid]
         #try to set lever
-        lever.setposition(inputs.values[lever.id])
+        lever.setposition(self.inputs.values[lever.id])
         if lever.error == True:
           # if error set errorlever id
           self.errorlever = lever.id
@@ -166,7 +166,7 @@ i1 = InputControls("dunedin")
 
 #outputs
 
-o1 = OutputControls()
+o1 = OutputControls("dunedin")
 
 #controls
 c1 = Control(1)
@@ -203,5 +203,5 @@ f1.addlever(l1)
 f1.addcontrol(c1)
 
 #loop
-while True:
-  f1.check()
+#while True:
+f1.check()
